@@ -4,20 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SignIn</title>
+    <title>SignUp</title>
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
 </head>
 <body>
     <div class="login">
-        <form class="form" id="signin-form">
-            <h2>SIGNIN</h2>
-            <input type="email" id="login-email"  placeholder="E-mail" required>
-            <input type="password" id="login-password"  placeholder="Password" required>
-            <button type="submit"class="button">SignIn</button>
+        <form class="form" id="signup-form">
+            <h2>SIGN UP</h2>
+            <input type="text" id="signup-username"  placeholder="UserName" required>
+            <input type="email" id="signup-email"  placeholder="Email" required>
+            <input type="password" id="signup-password" placeholder="Password" required>
+            <button type="submit"class="button">Sign Up</button>
             <div class="account-info">
-              Don't have an account? <a href="signup.html">Click here</a>
-            </div>
-            <div class="error" id="loginError"></div>
+                Already Registered? <a href="index.html">Click here</a>
+              </div>
+              <div class="error" id="signupError"></div>
           </form>
     </div>
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
@@ -42,6 +43,6 @@
   const auth = firebase.auth();
   const db = firebase.firestore();
 </script>
-    <script src="login.js"></script>
+    <script src="signup.js"></script>
 </body>
 </html>

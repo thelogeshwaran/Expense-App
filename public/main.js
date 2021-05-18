@@ -8,7 +8,7 @@ loginForm.addEventListener("submit", e=>{
     auth.signInWithEmailAndPassword(loginEmail, loginPassword)
     .then(()=>{
         console.log("login-sucess")
-        location="index.html"
+        location="app.html"
     })
     .catch((err)=>{
         loginError.textContent = err.message

@@ -4,7 +4,6 @@
 
 .content {
   display: flex;
-  height: 100vh;
   align-items: center;
   justify-content: center;
   flex-direction: column;
@@ -68,4 +67,64 @@
 .error{
     color: red;
     margin-top: 10px;
+}
+
+
+
+/* app page */
+
+.app{
+  background-color: #9CA3AF;
+  padding-bottom: 50px;
+}
+
+.signoutBtn{
+  margin-right: 20px;
+}
+
+
+.income-expense{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.card{
+  width: 300px;
+  min-width: 200px;
+}
+.total-balance{
+  margin-top: 10px;
+}
+
+
+.input-head{
+  display: flex;
+  margin: 10px;
+}
+
+.form-select{
+  height: 40px;
+  margin-left: 5px;
+}
+
+.tabs{
+  display: flex;
+  justify-content: space-around;
+  padding: 7px;
+  background-color: #1F2937;
+}
+
+.tab-btn{
+  color: white;
+  background-color: #109b4f;
+  height: 100%;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+
+.chartContainer{
+  margin: 0 auto;
+  height:400px; 
+  width:400px;
 }

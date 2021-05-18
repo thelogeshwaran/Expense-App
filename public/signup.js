@@ -22,7 +22,7 @@ signupForm.addEventListener("submit", e=>{
         })
         .then(()=>{
             console.log("database created")
-            location="index.html"
+            location="app.html"
         })
         
     })
