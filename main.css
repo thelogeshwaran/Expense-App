@@ -1,7 +1,71 @@
-.content{
+*{
+    margin: 0;
+}
+
+.content {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+
+.login{
+    background-color: rgb(46,55,64);
+    font-family: 'Asap', sans-serif;
     display: flex;
-    height: 100vh;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
+    height: 100vh;
+}
+.form {
+  overflow: hidden;
+  background-color: white;
+  padding: 40px 30px 30px 30px;
+  border-radius: 10px;
+  width: 400px;
+  box-shadow: 5px 10px 10px rgba(rgba(2, 128, 144, 1), 0.2);
+
+}
+
+.form > input {
+    font-family: 'Asap', sans-serif;
+    display: block;
+    border-radius: 5px;
+    font-size: 16px;
+    background: white;
+    width: 100%;
+    border: 0;
+    padding: 10px 10px;
+    margin: 15px -10px;
+    border-bottom: 1px solid black;
+  }
+
+  .button {
+    font-family: 'Asap', sans-serif;
+    cursor: pointer;
+    color: #fff;
+    font-size: 16px;
+    text-transform: uppercase;
+    width: 80px;
+    border: 0;
+    padding: 10px 0;
+    margin-top: 10px;
+    margin-left: -5px;
+    border-radius: 5px;
+    background-color: #1FCE6D;
+    
+  }
+  .button:hover{
+    background-color: #109b4f;
+  }
+
+.account-info{
+    margin-top: 10px;
+}
+
+.error{
+    color: red;
+    margin-top: 10px;
 }

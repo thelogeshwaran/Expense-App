@@ -25,6 +25,14 @@
             <div class="container-md">
                 <a class="navbar-brand" href="#">Expenser</a>
               </div>
+              <ul class="nav justify-content-end">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="signin.html">SignIn</a>
+                </li>
+                <li class="nav-item">
+                    <button class="btn btn-outline-primary" id="signout">Sign-Out</button>
+                  </li>
+                </ul>
 		</nav>
         
 		<div class="container-fluid bg-light" style="min-height: 100vh">
@@ -72,6 +80,29 @@
 		</div>
     </div>
     </div>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+
+<!--  Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBs2IZsOn5NTlTFzt1S0-XiaoRoJvUFBy8",
+    authDomain: "e-commerce-be125.firebaseapp.com",
+    projectId: "e-commerce-be125",
+    storageBucket: "e-commerce-be125.appspot.com",
+    messagingSenderId: "229854445299",
+    appId: "1:229854445299:web:ce9dc3a53bafc8ad614186"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+</script>
     <script src="main.js"></script>
   </body>
 </html>

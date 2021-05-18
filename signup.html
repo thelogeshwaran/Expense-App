@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignUp</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+</head>
+<body>
+    <div class="login">
+        <form class="form" id="signup-form">
+            <h2>SIGN UP</h2>
+            <input type="text" id="signup-username"  placeholder="UserName" required>
+            <input type="email" id="signup-email"  placeholder="Email" required>
+            <input type="password" id="signup-password" placeholder="Password" required>
+            <button type="submit"class="button">Sign Up</button>
+            <div class="account-info">
+                Already Registered? <a href="signin.html">Click here</a>
+              </div>
+              <div class="error" id="signupError"></div>
+          </form>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+
+<!--  Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBs2IZsOn5NTlTFzt1S0-XiaoRoJvUFBy8",
+    authDomain: "e-commerce-be125.firebaseapp.com",
+    projectId: "e-commerce-be125",
+    storageBucket: "e-commerce-be125.appspot.com",
+    messagingSenderId: "229854445299",
+    appId: "1:229854445299:web:ce9dc3a53bafc8ad614186"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+</script>
+    <script src="signup.js"></script>
+</body>
+</html>
