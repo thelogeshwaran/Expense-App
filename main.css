@@ -78,6 +78,17 @@
   padding-bottom: 50px;
 }
 
+
+.balance{
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.balance-card{
+  width: 85%;
+  background-color: white;
+}
 .signoutBtn{
   margin-right: 20px;
 }
@@ -86,27 +97,29 @@
 .income-expense{
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   flex-wrap: wrap;
 }
 .card{
-  width: 300px;
-  min-width: 200px;
+  width: 40%;
+  margin: 10px;
 }
 .total-balance{
   margin-top: 10px;
+}
+
+.container{
+  width: 60%;
 }
 
 
 .input-head{
   display: flex;
   margin: 10px;
+  align-items: center;
 }
 
-.form-select{
-  height: 40px;
-  margin-left: 5px;
-}
+
 
 .tabs{
   display: flex;
@@ -127,4 +140,29 @@
   margin: 0 auto;
   height:400px; 
   width:400px;
+}
+
+
+.category-note{
+  display: flex;
+ align-items: center;
+  justify-content: space-between;
+}
+
+.category{
+  width: 100%;
+  margin: 10px;
+}
+
+.input-group{
+  width: 100%;
+  margin: 10px;
+}
+
+.green{
+  border-right: 5px solid green;
+}
+
+.red{
+  border-right: 5px solid red;
 }

@@ -36,24 +36,26 @@
 
       <div class="container-fluid " style="min-height: 100vh">
         <div class="container">
-          
-          <div class="income-expense">
+          <div class="balance">
             <div
-            class="card border border-3 total-balance mb-3"
-            style="max-width: 18rem"
+            class=" balance-card border border-3 total-balance "
+            
           >
             <div class="card-header">Your Balance</div>
             <div class="card-body">
               <h1 id="totalBalance"></h1>
             </div>
           </div>
-            <div class="card mb-3" style="max-width: 18rem">
+          </div>
+          <div class="income-expense">
+            
+            <div class="card mb-3" >
               <div class="card-header text-success">INCOME</div>
               <div class="card-body">
                 <h2 class="text-success" id="totalIncome">₹ 1000</h2>
               </div>
             </div>
-            <div class="card mb-3" style="max-width: 18rem">
+            <div class="card mb-3" >
               <div class="card-header text-danger">EXPENSE</div>
               <div class="card-body">
                 <h2 class="text-danger" id="totalExpense">₹ 2000</h2>
@@ -61,7 +63,7 @@
             </div>
           </div>
 
-          <div class="jumbotron mt-4">
+          <div class="jumbotron ">
             <form id="form">
             <div class="input-head">
               <div class="input-group mb-3">
@@ -78,33 +80,37 @@
                   <span class="input-group-text" id="spent in rupee">₹</span>
                 </div>
               </div>
-              <select id="type" class="form-select" aria-label="Default select example" required>
-                <option selected>INCOME</option>
+              <select id="type" class="form-select " aria-label="Default select example" required>
+                <option value="">Type</option>
+                <option value="INCOME">INCOME</option>
                 <option value="EXPENSE">EXPENSE</option>
               </select>
             </div>
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="spent at">@</span>
+            <div class="category-note">
+              <div class="category"> 
+                <select class="form-select " id="category" aria-label=".form-select-sm example" required>
+                  <option value="">Category</option>
+                </select>
               </div>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Spent On"
-                aria-label="Spent On"
-                aria-describedby="spent at"
-                id="inputDesc"
-                required
-              />
-              <div class="input-group-append">
-                <button
-                  class="btn btn-info"
-                  type="submit"
-                >
-                  Add
-                </button>
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Note"
+                  id="inputDesc"
+                />
+                <div class="input-group-append">
+                  <button
+                    class="btn btn-info"
+                    type="submit"
+                  >
+                    Add
+                  </button>
+                </div>
               </div>
             </div>
+            
+            
           </form>
           </div>
           <nav class="tabs">

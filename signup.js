@@ -13,7 +13,7 @@ signupForm.addEventListener("submit", e=>{
         .doc(cred.user.uid)
         .set({
             name: username,
-            data:[]
+            data:{}
         })
         .then(()=>{
             cred.user.updateProfile({

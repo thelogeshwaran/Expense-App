@@ -11,15 +11,32 @@ let allTransfers = document.querySelector("#all");
 let expenseOnly = document.querySelector("#expenseOnly");
 let incomeOnly = document.querySelector("#incomeOnly");
 let chart = document.querySelector("#chart");
+let category = document.querySelector("#category");
 
-
-
-let totalBalance = 0;
-let totalIncome = 0;
-let totalExpense = 0;
+let total = {};
+total.totalBalance = 0;
+total.totalIncome = 0;
+total.totalExpense = 0;
 
 displayFinalAmount();
-const allExpenses = [];
+let allData = [];
+let allIncome = {};
+let allExpenses = {};
+categories = [
+  "Cloths",
+  "Fuel",
+  "Entertainment",
+  "Gifts",
+  "Holidays",
+  "Kids",
+  "Shopping",
+  "Sports",
+  "Travel",
+  "Misc",
+  "Eating Out",
+];
+
+incomeCategories = ["Allowance","Salary","Bonus","Petty Cash","Other"]
 
 function addExpense(e) {
   e.preventDefault();
@@ -28,88 +45,36 @@ function addExpense(e) {
   const amount = inputAmount.value;
   const expense = parseInt(amount, 10);
   const description = inputDescription.value;
+  const categoryValue = category.value;
 
   expenseItem.amount = expense;
   expenseItem.description = description;
-  expenseItem.momen = getDatetoString(new Date());
+  expenseItem.moment = getDatetoString(new Date());
   expenseItem.id = new Date().valueOf();
   expenseItem.type = type.value;
+  expenseItem.category = categoryValue;
 
-  allExpenses.push(expenseItem);
-
-  if (expenseItem.type === "INCOME") {
-    totalIncome = totalIncome + expense;
-    totalBalance = totalBalance + expense;
-  } else {
-    totalExpense = totalExpense + expense;
-    totalBalance = totalBalance - expense;
-  }
-
-  auth.onAuthStateChanged((user) => {
-    if (user) {
-      db.collection("users")
-        .doc(user.uid)
-        .update({
-          data: [...allExpenses],
-          totalBalance: totalBalance,
-          totalIncome: totalIncome,
-          totalExpense: totalExpense,
-        })
-        .then(() => {
-          console.log("added");
-        })
-        .catch((err) => {
-          console.log(err.message);
-        });
-    } else {
-      console.log("user is not signed in to add todos");
-    }
-  });
-
-  form.reset();
+  addExpenseData(expenseItem);
+  allData.push(expenseItem);
+  changeExpense(expenseItem, "ADD");
+  updateBackend();
   displayFinalAmount();
   showAll();
-  console.log(allExpenses);
 }
 
-function deleteItem(moment) {
-  allExpenses.map((item) => {
-    if (item.id === moment) {
-      let position = allExpenses.indexOf(item);
-      allExpenses.splice(position, 1);
-
-      if (item.type === "INCOME") {
-        totalIncome = totalIncome - item.amount;
-        totalBalance = totalBalance - item.amount;
-      } else {
-        totalExpense = totalExpense - item.amount;
-        totalBalance = totalBalance + item.amount;
-      }
+function deleteItem(id) {
+  allData.map((item) => {
+    if (item.id === id) {
+      let position = allData.indexOf(item);
+      allData.splice(position, 1);
+      changeExpense(item, "DELETE");
+      removeExpenseData(item);
     }
   });
-
-  auth.onAuthStateChanged((user) => {
-    if (user) {
-      db.collection("users")
-        .doc(user.uid)
-        .update({
-          data: [...allExpenses],
-          totalBalance: totalBalance,
-          totalIncome: totalIncome,
-          totalExpense: totalExpense,
-        })
-        .then(() => {
-          console.log("removed");
-        })
-        .catch((err) => {
-          console.log(err.message);
-        });
-    }
-  });
- 
+  updateBackend();
   displayFinalAmount();
   showAll();
-  console.log(allExpenses);
+  console.log(allData);
 }
 
 function signOut() {
@@ -122,24 +87,126 @@ auth.onAuthStateChanged((user) => {
       .doc(user.uid)
       .get()
       .then((snap) => {
-        snap?.data()?.data.map((item) => {
-          allExpenses.push(item);
-        });
-        console.log(allExpenses);
-        displayList(allExpenses);
-        totalBalance = snap.data().totalBalance;
-        totalIncome = snap.data().totalIncome;
-        totalExpense = snap.data().totalExpense;
-        allExpensesChart();
-        displayFinalAmount();
+        const document = snap.data();
+        updateFrontEnd(document);
       });
   } else {
     location = "index.html";
   }
 });
 
-function getDatetoString(moment) {
-  return moment.toLocaleDateString("en-US", {
+
+
+function addExpenseData(expenseItem) {
+  switch (expenseItem.type) {
+    case "INCOME":
+      allIncome[expenseItem.category] && allIncome[expenseItem.category].data
+        ? allIncome[expenseItem.category].data.push(expenseItem)
+        : ((obj = {}),
+          (obj.data = [expenseItem]),
+          (allIncome[expenseItem.category] = obj));
+      break;
+    case "EXPENSE":
+      allExpenses[expenseItem.category] &&
+      allExpenses[expenseItem.category].data
+        ? allExpenses[expenseItem.category].data.push(expenseItem)
+        : ((obj = {}),
+          (obj.data = [expenseItem]),
+          (allExpenses[expenseItem.category] = obj));
+    default:
+      break;
+  }
+}
+
+function removeExpenseData(item) {
+  switch (item.type) {
+    case "INCOME":
+      const data = allIncome[item.category].data.filter(
+        (data) => data.id !== item.id
+      );
+      allIncome[item.category].data = [...data];
+      break;
+
+    case "EXPENSE":
+      const filteredData = allExpenses[item.category].data.filter(
+        (data) => data.id !== item.id
+      );
+      allExpenses[item.category].data = [...filteredData];
+    default:
+      break;
+  }
+}
+
+function changeExpense(expenseItem, type) {
+  switch (type) {
+    case "ADD":
+      expenseItem.type === "INCOME"
+        ? ((total.totalIncome = total.totalIncome + expenseItem.amount),
+          (total.totalBalance = total.totalBalance + expenseItem.amount))
+        : ((total.totalExpense = total.totalExpense + expenseItem.amount),
+          (total.totalBalance = total.totalBalance - expenseItem.amount));
+      break;
+    case "DELETE":
+      expenseItem.type === "INCOME"
+        ? ((total.totalIncome = total.totalIncome - expenseItem.amount),
+          (total.totalBalance = total.totalBalance - expenseItem.amount))
+        : ((total.totalExpense = total.totalExpense - expenseItem.amount),
+          (total.totalBalance = total.totalBalance + expenseItem.amount));
+      break;
+    default:
+      break;
+  }
+}
+
+function updateBackend() {
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      db.collection("users")
+        .doc(user.uid)
+        .update({
+          data: total,
+          allIncome: allIncome,
+          allExpenses: allExpenses,
+        })
+        .then(() => {
+          console.log("added");
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    } else {
+      console.log("user is not signed in to add todos");
+    }
+  });
+}
+
+function updateFrontEnd(data) {
+  console.log(data);
+  categories.map((item) =>
+    data.allIncome[item]?.data?.map((item) => {
+      allData.push(item);
+    })
+  );
+  categories.map((item) =>
+    data.allExpenses[item]?.data?.map((item) => {
+      allData.push(item);
+      moment = parseInt(item.moment)
+      console.log(typeof(moment))
+    })
+  );
+
+  allIncome = data.allIncome;
+  allExpenses = data.allExpenses;
+  total = data.data;
+
+  
+  showAll();
+  displayFinalAmount();
+  displayCategory(categories);
+}
+
+function getDatetoString(momentt) {
+  return momentt.toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -147,13 +214,12 @@ function getDatetoString(moment) {
   });
 }
 
-function percentage(percent, total){
-  if(isNaN(percent) || isNaN(total)){
-    return 0
-  }else{
-    return ((percent/total) * 100).toFixed(3)
+function percentage(percent, total) {
+  if (isNaN(percent) || isNaN(total)) {
+    return 0;
+  } else {
+    return ((percent / total) * 100).toFixed(3);
   }
-   
 }
 
 function displayList(array) {
@@ -163,77 +229,146 @@ function displayList(array) {
 }
 
 function displayFinalAmount() {
-  finalBalance.textContent = "₹ " + totalBalance;
-  finalIncome.textContent = "₹ " + totalIncome;
-  finalExpense.textContent = "₹ " + totalExpense;
+  finalBalance.textContent = "₹ " + total.totalBalance;
+  finalIncome.textContent = "₹ " + total.totalIncome;
+  finalExpense.textContent = "₹ " + total.totalExpense;
 }
 
-function showAll(){
-  displayList(allExpenses);
-  allExpensesChart();
+function displayCategory(item) {
+  const categoryArray = item.map((item) => createCategory(item));
+  categoryArray.unshift(`<option value="">Category</option>`);
+  const joinedHtml = categoryArray.join("");
+  category.innerHTML = joinedHtml;
+}
+
+function categoryChange(){
+  console.log(type.value)
+  switch (type.value) {
+    case "INCOME":
+      displayCategory(incomeCategories)
+      break;
+     case "EXPENSE":
+       displayCategory(categories);
+    default:
+      break;
   }
-
-function allExpensesChart(){
-  let data1 = percentage(totalBalance,totalIncome)
-  let data2 = percentage(totalExpense,totalIncome)
-  let data =[data1,data2];
-  let labels = ["BALANCE","EXPENSES"];
-  addData(chart1,labels,data);
 }
-function addData(chart,labels, data) {
-  chart.data.labels= [...labels]
+
+function showAll() {
+  displayList(allData);
+  allDataChart();
+}
+
+function allDataChart() {
+  let data1 = percentage(total.totalBalance, total.totalIncome);
+  let data2 = percentage(total.totalExpense, total.totalIncome);
+  let data = [data1, data2];
+  let labels = ["BALANCE", "EXPENSES"];
+  let colors =["#36CAAB", "#FBBF24"]
+  addData(chart1, labels, data, colors);
+}
+
+function addData(chart, labels, data, colors) {
+  chart.data.labels = [...labels];
   chart.data.datasets.forEach((dataset) => {
-      dataset.data = [...data]
+    dataset.data = [...data];
+    dataset.backgroundColor = [...colors]
   });
+  
   chart.update();
 }
 
-function showExpense(){
-  const filteredExpense = allExpenses.filter((item)=> item.type ==="EXPENSE")
+function showIncome() {
+  const filteredExpense = allData.filter((item) => item.type === "INCOME");
   displayList(filteredExpense);
-  
+  allIncomeChart();
 }
 
-function showIncome(){
-  const filteredExpense = allExpenses.filter((item)=> item.type ==="INCOME")
+function allIncomeChart() {
+  let data = [];
+  let labels = [];
+  let colors = []
+  categories.map((item) => {
+    allIncome[item] &&
+      allIncome[item].data.length > 0 &&
+      ((amountData = 0),
+      (amountData = allIncome[item].data.map((data) => data.amount)),
+      (singlecategory = amountData.reduce((a, b) => a + b, 0)),
+      (percentageData = percentage(singlecategory, total.totalIncome)),
+      data.push(percentageData),
+      labels.push(item));
+      colors.push(randomColor())
+  });
+  addData(chart1, labels, data,colors);
+}
+
+function showExpense() {
+  const filteredExpense = allData.filter((item) => item.type === "EXPENSE");
   displayList(filteredExpense);
+  allExpensesChart();
+}
+
+function allExpensesChart() {
+  let data = [];
+  let labels = [];
+  let colors =[];
+
+  categories.map((item) => {
+    allExpenses[item] &&
+      allExpenses[item].data.length > 0 &&
+      ((amountData = 0),
+      (amountData = allExpenses[item].data.map((data) => data.amount)),
+      (singlecategory = amountData.reduce((a, b) => a + b, 0)),
+      (percentageData = percentage(singlecategory, total.totalIncome)),
+      data.push(percentageData),
+      labels.push(item));
+      colors.push(randomColor());
+  });
+  addData(chart1, labels, data,colors);
 }
 
 
+function randomColor(){
+  return "#"+Math.floor(Math.random()*16777215).toString(16);
+}
 
+const labels = ["Balance", "Expense"];
+const datas = [100, 0];
+const colors = ["#49A9EA", "#36CAAB", "#FBBF24"];
 
-const labels = ["Balance","Expense"]
-const datas =[100,0];
-const colors =[ "#49A9EA","#36CAAB", "#FBBF24"]
-
-  let chart1 = new Chart(chart,{
-    type :"doughnut",
-    data:{
-      labels: labels,
-      datasets : [{
-        data : datas,
-        backgroundColor:colors
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: {
-          position: 'top',
-          labels: {
-            color:"white"
-        }
+let chart1 = new Chart(chart, {
+  type: "doughnut",
+  data: {
+    labels: labels,
+    datasets: [
+      {
+        data: datas,
+        backgroundColor: colors,
+        borderWidth: 0
+      },
+    ],
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+        labels: {
+          color: "white",
         },
-      }
+      },
     },
-  })
+  },
+});
 
-
-function createList({ description, amount, momen, id }) {
-  return `<li class="list-group-item d-flex justify-content-between">
+function createCategory(item) {
+  return `<option value="${item}">${item}</option>`;
+}
+function createList({ description,category, amount, moment, id,type }) {
+  return `<li class="list-group-item d-flex justify-content-between ${type==="INCOME" ? "green" : "red"}">
     <div class="d-flex flex-column">
-        ${description}
-        <small class="text-muted">${momen}</small>
+        ${category}
+        <small class="text-muted">${moment}</small>
     </div>
     <div>
         <span class="px-5">
@@ -246,10 +381,11 @@ function createList({ description, amount, momen, id }) {
 </li>`;
 }
 
-
-
 form.addEventListener("submit", addExpense, false);
 signOutBtn.addEventListener("click", signOut, false);
 expenseOnly.addEventListener("click", showExpense, false);
 incomeOnly.addEventListener("click", showIncome, false);
 allTransfers.addEventListener("click", showAll, false);
+type.addEventListener("change", categoryChange, false);
+
+
