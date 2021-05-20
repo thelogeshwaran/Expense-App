@@ -12,6 +12,7 @@ let expenseOnly = document.querySelector("#expenseOnly");
 let incomeOnly = document.querySelector("#incomeOnly");
 let chart = document.querySelector("#chart");
 let category = document.querySelector("#category");
+let statistics = document.querySelector("#stats-header");
 
 let total = {};
 total.totalBalance = 0;
@@ -36,7 +37,7 @@ categories = [
   "Eating Out",
 ];
 
-incomeCategories = ["Allowance","Salary","Bonus","Petty Cash","Other"]
+incomeCategories = ["Allowance", "Salary", "Bonus", "Petty Cash", "Other"];
 
 function addExpense(e) {
   e.preventDefault();
@@ -49,7 +50,7 @@ function addExpense(e) {
 
   expenseItem.amount = expense;
   expenseItem.description = description;
-  expenseItem.moment = getDatetoString(new Date());
+  expenseItem.moment = getDatetoString(new Date(value));
   expenseItem.id = new Date().valueOf();
   expenseItem.type = type.value;
   expenseItem.category = categoryValue;
@@ -60,6 +61,7 @@ function addExpense(e) {
   updateBackend();
   displayFinalAmount();
   showAll();
+  form.reset();
 }
 
 function deleteItem(id) {
@@ -74,7 +76,6 @@ function deleteItem(id) {
   updateBackend();
   displayFinalAmount();
   showAll();
-  console.log(allData);
 }
 
 function signOut() {
@@ -95,9 +96,8 @@ auth.onAuthStateChanged((user) => {
   }
 });
 
-
-
 function addExpenseData(expenseItem) {
+  console.log(allIncome);
   switch (expenseItem.type) {
     case "INCOME":
       allIncome[expenseItem.category] && allIncome[expenseItem.category].data
@@ -181,37 +181,48 @@ function updateBackend() {
 }
 
 function updateFrontEnd(data) {
-  console.log(data);
-  categories.map((item) =>
-    data.allIncome[item]?.data?.map((item) => {
-      allData.push(item);
-    })
+  incomeCategories.map(
+    (item) =>
+      data.allIncome &&
+      data.allIncome[item] &&
+      data.allIncome[item]?.data?.map((item) => {
+        allData.push(item);
+      })
   );
-  categories.map((item) =>
-    data.allExpenses[item]?.data?.map((item) => {
-      allData.push(item);
-      moment = parseInt(item.moment)
-      console.log(typeof(moment))
-    })
+  categories.map(
+    (item) =>
+      data.allExpenses &&
+      data.allExpenses[item] &&
+      data.allExpenses[item]?.data?.map((item) => {
+        allData.push(item);
+        moment = parseInt(item.moment);
+      })
   );
 
-  allIncome = data.allIncome;
-  allExpenses = data.allExpenses;
-  total = data.data;
+  allIncome = data.allIncome ? data?.allIncome : allIncome;
+  allExpenses = data.allExpenses ? data?.allExpenses : allExpenses;
+  total = data.data ? data?.data : total;
 
-  
+  console.log(allData)
+  let sortedData = allData.sort((a, b) => {
+    parseInt(b.moment) - parseInt(a.moment)
+    console.log(a.moment)
+  }
+    )
+  console.log(allData)
   showAll();
   displayFinalAmount();
   displayCategory(categories);
 }
 
-function getDatetoString(momentt) {
-  return momentt.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    weekday: "long",
-  });
+function getDatetoString(moment) {
+  // return moment.toLocaleDateString("en-US", {
+  //   year: "numeric",
+  //   month: "long",
+  //   day: "numeric"
+  //   // weekday: "long",
+  // });
+  console.log(moment)
 }
 
 function percentage(percent, total) {
@@ -229,9 +240,12 @@ function displayList(array) {
 }
 
 function displayFinalAmount() {
-  finalBalance.textContent = "₹ " + total.totalBalance;
-  finalIncome.textContent = "₹ " + total.totalIncome;
-  finalExpense.textContent = "₹ " + total.totalExpense;
+  
+  if (total) {
+    finalBalance.textContent = "₹ " + total.totalBalance > 0 ? total.totalBalance : 0 ;
+    finalIncome.textContent = "₹ " + total.totalIncome > 0 ? total.totalIncome : 0;
+    finalExpense.textContent = "₹ " + total.totalExpense > 0 ? total.totalExpense : 0;
+  }
 }
 
 function displayCategory(item) {
@@ -241,14 +255,13 @@ function displayCategory(item) {
   category.innerHTML = joinedHtml;
 }
 
-function categoryChange(){
-  console.log(type.value)
+function categoryChange() {
   switch (type.value) {
     case "INCOME":
-      displayCategory(incomeCategories)
+      displayCategory(incomeCategories);
       break;
-     case "EXPENSE":
-       displayCategory(categories);
+    case "EXPENSE":
+      displayCategory(categories);
     default:
       break;
   }
@@ -257,14 +270,15 @@ function categoryChange(){
 function showAll() {
   displayList(allData);
   allDataChart();
+  statistics.textContent = "All";
 }
 
 function allDataChart() {
-  let data1 = percentage(total.totalBalance, total.totalIncome);
-  let data2 = percentage(total.totalExpense, total.totalIncome);
+  let data1 = percentage(total?.totalBalance, total?.totalIncome);
+  let data2 = percentage(total?.totalExpense, total?.totalIncome);
   let data = [data1, data2];
   let labels = ["BALANCE", "EXPENSES"];
-  let colors =["#36CAAB", "#FBBF24"]
+  let colors = ["#36CAAB", "#FBBF24"];
   addData(chart1, labels, data, colors);
 }
 
@@ -272,9 +286,9 @@ function addData(chart, labels, data, colors) {
   chart.data.labels = [...labels];
   chart.data.datasets.forEach((dataset) => {
     dataset.data = [...data];
-    dataset.backgroundColor = [...colors]
+    dataset.backgroundColor = [...colors];
   });
-  
+
   chart.update();
 }
 
@@ -282,13 +296,14 @@ function showIncome() {
   const filteredExpense = allData.filter((item) => item.type === "INCOME");
   displayList(filteredExpense);
   allIncomeChart();
+  statistics.textContent = "Income";
 }
 
 function allIncomeChart() {
   let data = [];
   let labels = [];
-  let colors = []
-  categories.map((item) => {
+  let colors = [];
+  incomeCategories.map((item) => {
     allIncome[item] &&
       allIncome[item].data.length > 0 &&
       ((amountData = 0),
@@ -297,21 +312,22 @@ function allIncomeChart() {
       (percentageData = percentage(singlecategory, total.totalIncome)),
       data.push(percentageData),
       labels.push(item));
-      colors.push(randomColor())
+    colors.push(randomColor());
   });
-  addData(chart1, labels, data,colors);
+  addData(chart1, labels, data, colors);
 }
 
 function showExpense() {
   const filteredExpense = allData.filter((item) => item.type === "EXPENSE");
   displayList(filteredExpense);
   allExpensesChart();
+  statistics.textContent = "Expense";
 }
 
 function allExpensesChart() {
   let data = [];
   let labels = [];
-  let colors =[];
+  let colors = [];
 
   categories.map((item) => {
     allExpenses[item] &&
@@ -319,17 +335,16 @@ function allExpensesChart() {
       ((amountData = 0),
       (amountData = allExpenses[item].data.map((data) => data.amount)),
       (singlecategory = amountData.reduce((a, b) => a + b, 0)),
-      (percentageData = percentage(singlecategory, total.totalIncome)),
+      (percentageData = percentage(singlecategory, total.totalExpense)),
       data.push(percentageData),
       labels.push(item));
-      colors.push(randomColor());
+    colors.push(randomColor());
   });
-  addData(chart1, labels, data,colors);
+  addData(chart1, labels, data, colors);
 }
 
-
-function randomColor(){
-  return "#"+Math.floor(Math.random()*16777215).toString(16);
+function randomColor() {
+  return "#" + Math.floor(Math.random() * 16777215).toString(16);
 }
 
 const labels = ["Balance", "Expense"];
@@ -344,7 +359,7 @@ let chart1 = new Chart(chart, {
       {
         data: datas,
         backgroundColor: colors,
-        borderWidth: 0
+        borderWidth: 0,
       },
     ],
   },
@@ -364,15 +379,18 @@ let chart1 = new Chart(chart, {
 function createCategory(item) {
   return `<option value="${item}">${item}</option>`;
 }
-function createList({ description,category, amount, moment, id,type }) {
-  return `<li class="list-group-item d-flex justify-content-between ${type==="INCOME" ? "green" : "red"}">
+function createList({ description, category, amount, moment, id, type }) {
+  return `<li class="list-group-item d-flex justify-content-between ">
     <div class="d-flex flex-column">
         ${category}
+        <small class="text-muted">${description}</small>
         <small class="text-muted">${moment}</small>
     </div>
     <div>
-        <span class="px-5">
-            ${amount}
+        <span class="px-5" style="color:${
+          type === "INCOME" ? "green" : "red"
+        };">
+        ₹ ${amount}
         </span>
         <button type="button" class="btn btn-outline-danger btn-sm" onClick="deleteItem(${id})">
             <i class="fas fa-trash-alt"></i>
@@ -387,5 +405,3 @@ expenseOnly.addEventListener("click", showExpense, false);
 incomeOnly.addEventListener("click", showIncome, false);
 allTransfers.addEventListener("click", showAll, false);
 type.addEventListener("change", categoryChange, false);
-
-

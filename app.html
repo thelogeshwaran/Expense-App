@@ -19,6 +19,7 @@
     ></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <link rel="icon" href="/Images/graph.svg" type="image/gif" sizes="16x16">
   </head>
   <body>
     <div class="app">
@@ -52,13 +53,13 @@
             <div class="card mb-3" >
               <div class="card-header text-success">INCOME</div>
               <div class="card-body">
-                <h2 class="text-success" id="totalIncome">₹ 1000</h2>
+                <h2 class="text-success" id="totalIncome">₹ </h2>
               </div>
             </div>
             <div class="card mb-3" >
               <div class="card-header text-danger">EXPENSE</div>
               <div class="card-body">
-                <h2 class="text-danger" id="totalExpense">₹ 2000</h2>
+                <h2 class="text-danger" id="totalExpense">₹ </h2>
               </div>
             </div>
           </div>
@@ -101,7 +102,7 @@
                 />
                 <div class="input-group-append">
                   <button
-                    class="btn btn-info"
+                    class="btn btn-success"
                     type="submit"
                   >
                     Add
@@ -128,6 +129,7 @@
             <ul class="list-group" id="expenseTable"></ul>
           </div>
           <div class="chartContainer">
+            <h2>Statistics - <span id="stats-header">All</span></h2>
             <canvas id="chart"></canvas>
           </div>
           
