@@ -12,11 +12,12 @@ function signInGoogle() {
           name: cred.user.displayName,
           data: {},
         })
+        location = "app.html";
     })
     .catch((err) => {
       console.log(err.message);
     });
-    location = "app.html";
+    
 }
 
 loginForm.addEventListener("submit", (e) => {
