@@ -36,7 +36,6 @@ function signInGoogle() {
   auth
     .signInWithPopup(new firebase.auth.GoogleAuthProvider())
     .then((cred) => {
-      console.log(cred.user.displayName)
       db.collection("users")
         .doc(cred.user.uid)
         .set({
@@ -44,12 +43,12 @@ function signInGoogle() {
           data: {},
         })
         .then(() => {
+          console.log("created")
+        })
+        .then(() => {
           console.log("database created");
           location = "app.html";
-        })
-        .catch((err)=>{
-          console.log(err.message)
-        })
+        });
     })
     .catch((err) => {
       errorInfo.textContent = err.message;
