@@ -46,7 +46,10 @@ function signInGoogle() {
         .then(() => {
           console.log("database created");
           location = "app.html";
-        });
+        })
+        .catch((err)=>{
+          console.log(err.message)
+        })
     })
     .catch((err) => {
       errorInfo.textContent = err.message;
