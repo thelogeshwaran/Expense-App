@@ -2,19 +2,16 @@ const loginForm = document.querySelector("#signin-form");
 const errorInfo = document.querySelector("#loginError");
 const googleAuth = document.querySelector("#google-auth");
 
-var provider = new firebase.auth.GoogleAuthProvider();
-function signInGoogle(){
-  
-  firebase.auth()
-  .signInWithPopup(provider)
-  .then((result) => {
-    console.log(result)
-  })
-  .catch((err)=>{
-    console.log(err.message)
-  })
-  }
-
+function signInGoogle() {
+  auth
+    .signInWithPopup(new firebase.auth.GoogleAuthProvider())
+    .then(() => {
+      location = "app.html";
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+}
 
 loginForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -32,5 +29,4 @@ loginForm.addEventListener("submit", (e) => {
     });
 });
 
-
-googleAuth.addEventListener("click",signInGoogle,false)
+googleAuth.addEventListener("click", signInGoogle, false);

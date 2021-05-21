@@ -1,5 +1,6 @@
 const signupForm = document.querySelector("#signup-form");
 const errorInfo = document.querySelector("#signupError");
+const googleAuth = document.querySelector("#google-auth");
 
 signupForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -30,3 +31,17 @@ signupForm.addEventListener("submit", (e) => {
       errorInfo.textContent = err.message;
     });
 });
+
+function signInGoogle() {
+  auth
+    .signInWithPopup(new firebase.auth.GoogleAuthProvider())
+    .then(() => {
+      location = "app.html";
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+}
+
+
+googleAuth.addEventListener("click", signInGoogle, false);
