@@ -36,20 +36,21 @@ function signInGoogle() {
   auth
     .signInWithPopup(new firebase.auth.GoogleAuthProvider())
     .then((cred) => {
+      console.log(cred.user.displayName)
       db.collection("users")
         .doc(cred.user.uid)
         .set({
           name: cred.user.displayName,
           data: {},
         })
-    .then(() => {
-      location = "app.html";
+        .then(() => {
+          console.log("database created");
+          location = "app.html";
+        });
     })
-  })
     .catch((err) => {
-      console.log(err.message);
+      errorInfo.textContent = err.message;
     });
-  
 }
 
 
