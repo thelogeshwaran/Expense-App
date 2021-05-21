@@ -43,9 +43,6 @@ function signInGoogle() {
           data: {},
         })
         .then(() => {
-          console.log("created")
-        })
-        .then(() => {
           console.log("database created");
           location = "app.html";
         });

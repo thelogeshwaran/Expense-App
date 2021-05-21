@@ -5,12 +5,18 @@ const googleAuth = document.querySelector("#google-auth");
 function signInGoogle() {
   auth
     .signInWithPopup(new firebase.auth.GoogleAuthProvider())
-    .then(() => {
-      location = "app.html";
+    .then((cred)=>{
+      db.collection("users")
+        .doc(cred.user.uid)
+        .set({
+          name: cred.user.displayName,
+          data: {},
+        })
     })
     .catch((err) => {
       console.log(err.message);
     });
+    location = "app.html";
 }
 
 loginForm.addEventListener("submit", (e) => {
