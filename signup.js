@@ -35,12 +35,21 @@ signupForm.addEventListener("submit", (e) => {
 function signInGoogle() {
   auth
     .signInWithPopup(new firebase.auth.GoogleAuthProvider())
+    .then((cred) => {
+      db.collection("users")
+        .doc(cred.user.uid)
+        .set({
+          name: username,
+          data: {},
+        })
     .then(() => {
       location = "app.html";
     })
+  })
     .catch((err) => {
       console.log(err.message);
     });
+  
 }
 
 
