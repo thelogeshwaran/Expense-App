@@ -97,7 +97,6 @@ auth.onAuthStateChanged((user) => {
 });
 
 function addExpenseData(expenseItem) {
-  console.log(allIncome);
   switch (expenseItem.type) {
     case "INCOME":
       allIncome[expenseItem.category] && allIncome[expenseItem.category].data
@@ -168,9 +167,7 @@ function updateBackend() {
           allIncome: allIncome,
           allExpenses: allExpenses,
         })
-        .then(() => {
-          console.log("added");
-        })
+        .then(() => {})
         .catch((err) => {
           console.log(err.message);
         });
@@ -207,7 +204,6 @@ function updateFrontEnd(data) {
     return new Date(a.moment) - new Date(b.moment);
   });
 
-  console.log(allData);
   showAll();
   displayFinalAmount();
   displayCategory(categories);

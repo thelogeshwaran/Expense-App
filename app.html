@@ -19,7 +19,7 @@
     ></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <link rel="icon" href="/Images/graph.svg" type="image/gif" sizes="16x16">
+    <link rel="icon" href="/Images/graph.svg" type="image/gif" sizes="16x16" />
   </head>
   <body>
     <div class="app">
@@ -27,105 +27,95 @@
         <div class="container-md">
           <a class="navbar-brand" href="#">Expenser</a>
           <div class="signoutBtn">
-            <button class="btn btn-success" id="signout">
-              Signout
-            </button>
+            <button class="btn btn-success" id="signout">Signout</button>
           </div>
         </div>
-        
       </nav>
 
-      <div class="container-fluid " style="min-height: 100vh">
+      <div class="container-fluid" style="min-height: 100vh">
         <div class="container">
           <div class="balance">
-            <div
-            class=" balance-card border border-3 total-balance "
-            
-          >
-            <div class="card-header">YOUR BALANCE</div>
-            <div class="card-body">
-              <h1 id="totalBalance"></h1>
-            </div>
-          </div>
-          </div>
-          <div class="income-expense">
-            
-            <div class="card mb-3" >
-              <div class="card-header text-success">INCOME</div>
+            <div class="balance-card border border-3 total-balance">
+              <div class="card-header">YOUR BALANCE</div>
               <div class="card-body">
-                <h2 class="text-success" id="totalIncome">₹ </h2>
+                <h1 id="totalBalance"></h1>
               </div>
             </div>
-            <div class="card mb-3" >
+          </div>
+          <div class="income-expense">
+            <div class="card mb-3">
+              <div class="card-header text-success">INCOME</div>
+              <div class="card-body">
+                <h2 class="text-success" id="totalIncome">₹</h2>
+              </div>
+            </div>
+            <div class="card mb-3">
               <div class="card-header text-danger">EXPENSE</div>
               <div class="card-body">
-                <h2 class="text-danger" id="totalExpense">₹ </h2>
+                <h2 class="text-danger" id="totalExpense">₹</h2>
               </div>
             </div>
           </div>
 
-          <div class="jumbotron ">
+          <div class="jumbotron">
             <h2>Add</h2>
             <form id="form">
-            <div class="input-head">
-              <div class="input-group mb-3">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Amount spent"
-                  aria-label="Amount spent"
-                  aria-describedby="spent in rupee"
-                  id="inputAmount"
-                  required
-                />
-                <div class="input-group-append">
-                  <span class="input-group-text" id="spent in rupee">₹</span>
+              <div class="input-head">
+                <div class="input-group mb-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Amount spent"
+                    aria-label="Amount spent"
+                    aria-describedby="spent in rupee"
+                    id="inputAmount"
+                    required
+                  />
+                  <div class="input-group-append">
+                    <span class="input-group-text" id="spent in rupee">₹</span>
+                  </div>
                 </div>
-              </div>
-              <select id="type" class="form-select " aria-label="Default select example" required>
-                <option value="">Type</option>
-                <option value="INCOME">INCOME</option>
-                <option value="EXPENSE">EXPENSE</option>
-              </select>
-            </div>
-            <div class="category-note">
-              <div class="category"> 
-                <select class="form-select " id="category" aria-label=".form-select-sm example" required>
-                  <option value="">Category</option>
+                <select
+                  id="type"
+                  class="form-select"
+                  aria-label="Default select example"
+                  required
+                >
+                  <option value="">Type</option>
+                  <option value="INCOME">INCOME</option>
+                  <option value="EXPENSE">EXPENSE</option>
                 </select>
               </div>
-              <div class="input-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Note"
-                  id="inputDesc"
-                />
-                <div class="input-group-append">
-                  <button
-                    class="btn btn-success"
-                    type="submit"
+              <div class="category-note">
+                <div class="category">
+                  <select
+                    class="form-select"
+                    id="category"
+                    aria-label=".form-select-sm example"
+                    required
                   >
-                    Add
-                  </button>
+                    <option value="">Category</option>
+                  </select>
+                </div>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Note"
+                    id="inputDesc"
+                  />
+                  <div class="input-group-append">
+                    <button class="btn btn-success" type="submit">Add</button>
+                  </div>
                 </div>
               </div>
-            </div>
-            
-            
-          </form>
+            </form>
           </div>
           <h2 class="history">History</h2>
           <nav class="tabs">
-            <button class="btn btn-success " id="all">
-              ALL
-            </button>
-            <button class="btn btn-success" id="incomeOnly">
-              INCOME
-            </button>
-            <button class="btn btn-success" id="expenseOnly">
-              EXPENSE
-            </button>
+            <button class="btn btn-success" id="all">ALL</button>
+            <button class="btn btn-success" id="incomeOnly">INCOME</button>
+            <button class="btn btn-success" id="expenseOnly">EXPENSE</button>
           </nav>
           <div>
             <ul class="list-group" id="expenseTable"></ul>
@@ -134,7 +124,6 @@
             <h2>Statistics - <span id="stats-header">All</span></h2>
             <canvas id="chart"></canvas>
           </div>
-          
         </div>
       </div>
     </div>
@@ -162,7 +151,7 @@
       const auth = firebase.auth();
       const db = firebase.firestore();
     </script>
-    
+
     <script src="app.js"></script>
   </body>
 </html>

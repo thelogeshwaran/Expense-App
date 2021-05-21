@@ -1,5 +1,5 @@
-*{
-    margin: 0;
+* {
+  margin: 0;
 }
 
 .content {
@@ -9,14 +9,13 @@
   flex-direction: column;
 }
 
-
-.login{
-    background-color: rgb(46,55,64);
-    font-family: 'Asap', sans-serif;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+.login {
+  background-color: #45526c;
+  font-family: "Asap", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
 .form {
   overflow: hidden;
@@ -25,115 +24,129 @@
   border-radius: 10px;
   width: 400px;
   box-shadow: 5px 10px 10px rgba(rgba(2, 128, 144, 1), 0.2);
-
 }
 
 .form > input {
-    font-family: 'Asap', sans-serif;
-    display: block;
-    border-radius: 5px;
-    font-size: 16px;
-    background: white;
-    width: 100%;
-    border: 0;
-    padding: 10px 10px;
-    margin: 15px -10px;
-    border-bottom: 1px solid black;
-  }
-
-  .button {
-    font-family: 'Asap', sans-serif;
-    cursor: pointer;
-    color: #fff;
-    font-size: 16px;
-    text-transform: uppercase;
-    width: 80px;
-    border: 0;
-    padding: 10px 0;
-    margin-top: 10px;
-    margin-left: -5px;
-    border-radius: 5px;
-    background-color: #1FCE6D;
-    
-  }
-  .button:hover{
-    background-color: #109b4f;
-  }
-
-.account-info{
-    margin-top: 10px;
+  font-family: "Asap", sans-serif;
+  display: block;
+  border-radius: 5px;
+  font-size: 16px;
+  background: white;
+  width: 100%;
+  border: 0;
+  padding: 10px 10px;
+  margin: 15px -10px;
+  border-bottom: 1px solid black;
 }
 
-.error{
-    color: red;
-    margin-top: 10px;
+.button {
+  font-family: "Asap", sans-serif;
+  cursor: pointer;
+  color: #fff;
+  font-size: 16px;
+  text-transform: uppercase;
+  width: 80px;
+  border: 0;
+  padding: 10px 0;
+  margin-top: 10px;
+  margin-left: -5px;
+  border-radius: 5px;
+  background-color: #1fce6d;
+}
+.button:hover {
+  background-color: #109b4f;
 }
 
+.account-info {
+  margin-top: 10px;
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+}
+
+.fa-google{
+  color:#45526c;
+  cursor: pointer;
+}
+
+.auth-logo{
+  font-size: 40px;
+  text-align: center;
+}
+.signin-header{
+  color: #109b4f;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.auth-info{
+  text-align: center;
+  padding: 10px;
+}
 
 
 /* app page */
 
-.app{
-  background-color: #9CA3AF;
+.app {
+  background-color: #9ca3af;
   padding-bottom: 50px;
   color: white;
 }
 
-
-.balance{
+.balance {
   display: flex;
   justify-content: center;
   padding-bottom: 10px;
 }
 
-.balance-card{
+.balance-card {
   width: 100%;
   background-color: white;
   color: black;
 }
-.signoutBtn{
+.signoutBtn {
   margin-right: 20px;
 }
 
-
-.income-expense{
+.income-expense {
   display: flex;
   align-items: center;
   justify-content: space-around;
   flex-wrap: wrap;
   width: 100%;
 }
-.card{
+.card {
   width: 40%;
   /* margin: 0px 5px; */
 }
-.total-balance{
+.total-balance {
   margin-top: 10px;
 }
 
-.container{
+.container {
   width: 50%;
   margin-bottom: 50px;
 }
 
-
-.input-head{
+.input-head {
   display: flex;
   align-items: center;
 }
 
-.history{
+.history {
   margin-top: 20px;
   margin-bottom: 10px;
 }
-.tabs{
+.tabs {
   display: flex;
   justify-content: space-around;
   padding: 7px;
-  background-color: #1F2937;
+  background-color: #1f2937;
 }
 
-.tab-btn{
+.tab-btn {
   color: white;
   background-color: #109b4f;
   height: 100%;
@@ -141,55 +154,49 @@
   border-radius: 10px;
 }
 
-.chartContainer{
+.chartContainer {
   margin: 0 auto;
-  height:400px; 
-  width:400px;
+  height: 400px;
+  width: 400px;
   color: white;
 }
 
 .chartContainer > h2 {
   text-align: center;
-  border-bottom: 2px solid grey ;
+  border-bottom: 2px solid grey;
   margin: 20px 5px;
 }
 
-
-.category-note{
+.category-note {
   display: flex;
- align-items: center;
+  align-items: center;
   justify-content: space-between;
 }
 
-.category{
+.category {
   width: 100%;
   margin: 10px;
 }
 
-.input-group{
+.input-group {
   width: 100%;
   margin: 10px;
 }
-
-
-
+.amount {
+  padding-right: 10px;
+}
 
 
 @media (max-width: 768px) {
-
-  .container{
+  .container {
     width: 100%;
     padding: 10px;
   }
-  .chartContainer{
-    height:fit-content; 
-    width:90vw;
+  .chartContainer {
+    height: fit-content;
+    width: 90vw;
     margin: 0 auto;
     color: white;
     padding: 0;
-  }
-
-  .amount{
-    padding-right: 10px;
   }
 }
