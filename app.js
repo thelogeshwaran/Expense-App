@@ -50,7 +50,7 @@ function addExpense(e) {
 
   expenseItem.amount = expense;
   expenseItem.description = description;
-  expenseItem.moment = getDatetoString(new Date(value));
+  expenseItem.moment = new Date().toLocaleString();
   expenseItem.id = new Date().valueOf();
   expenseItem.type = type.value;
   expenseItem.category = categoryValue;
@@ -201,28 +201,20 @@ function updateFrontEnd(data) {
 
   allIncome = data.allIncome ? data?.allIncome : allIncome;
   allExpenses = data.allExpenses ? data?.allExpenses : allExpenses;
-  total = data.data ? data?.data : total;
+  total = Object.keys(data.data).length > 0 ? data?.data : total;
 
-  console.log(allData)
-  let sortedData = allData.sort((a, b) => {
-    parseInt(b.moment) - parseInt(a.moment)
-    console.log(a.moment)
-  }
-    )
-  console.log(allData)
+  allData.sort((a, b) => {
+    return new Date(a.moment) - new Date(b.moment);
+  });
+
+  console.log(allData);
   showAll();
   displayFinalAmount();
   displayCategory(categories);
 }
 
 function getDatetoString(moment) {
-  // return moment.toLocaleDateString("en-US", {
-  //   year: "numeric",
-  //   month: "long",
-  //   day: "numeric"
-  //   // weekday: "long",
-  // });
-  console.log(moment)
+  return moment.toLocaleString();
 }
 
 function percentage(percent, total) {
@@ -240,11 +232,12 @@ function displayList(array) {
 }
 
 function displayFinalAmount() {
-  
   if (total) {
-    finalBalance.textContent = "₹ " + total.totalBalance > 0 ? total.totalBalance : 0 ;
-    finalIncome.textContent = "₹ " + total.totalIncome > 0 ? total.totalIncome : 0;
-    finalExpense.textContent = "₹ " + total.totalExpense > 0 ? total.totalExpense : 0;
+    finalBalance.textContent =
+      "₹ " + total.totalBalance ? total.totalBalance : 0;
+    finalIncome.textContent = "₹ " + total.totalIncome ? total.totalIncome : 0;
+    finalExpense.textContent =
+      "₹ " + total.totalExpense ? total.totalExpense : 0;
   }
 }
 
