@@ -39,7 +39,7 @@ function signInGoogle() {
       db.collection("users")
         .doc(cred.user.uid)
         .set({
-          name: user.displayName,
+          name: cred.user.displayName,
           data: {},
         })
     .then(() => {
