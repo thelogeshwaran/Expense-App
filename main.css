@@ -76,6 +76,7 @@
 .app{
   background-color: #9CA3AF;
   padding-bottom: 50px;
+  color: white;
 }
 
 
@@ -88,6 +89,7 @@
 .balance-card{
   width: 100%;
   background-color: white;
+  color: black;
 }
 .signoutBtn{
   margin-right: 20px;
@@ -120,8 +122,10 @@
   align-items: center;
 }
 
-
-
+.history{
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
 .tabs{
   display: flex;
   justify-content: space-around;
@@ -167,3 +171,25 @@
   margin: 10px;
 }
 
+
+
+
+
+@media (max-width: 768px) {
+
+  .container{
+    width: 100%;
+    padding: 10px;
+  }
+  .chartContainer{
+    height:fit-content; 
+    width:90vw;
+    margin: 0 auto;
+    color: white;
+    padding: 0;
+  }
+
+  .amount{
+    padding-right: 10px;
+  }
+}

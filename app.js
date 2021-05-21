@@ -373,14 +373,14 @@ function createCategory(item) {
   return `<option value="${item}">${item}</option>`;
 }
 function createList({ description, category, amount, moment, id, type }) {
-  return `<li class="list-group-item d-flex justify-content-between ">
-    <div class="d-flex flex-column">
+  return `<li class="list-group-item d-flex justify-content-between">
+    <div class="d-flex flex-column info">
         ${category}
         <small class="text-muted">${description}</small>
         <small class="text-muted">${moment}</small>
     </div>
-    <div>
-        <span class="px-5" style="color:${
+    <div class="delete-body">
+        <span class="amount" style="color:${
           type === "INCOME" ? "green" : "red"
         };">
         ₹ ${amount}
