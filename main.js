@@ -35,8 +35,8 @@ function show() {
   loginForm["login-password"].type === "password"
     ? ((loginForm["login-password"].type = "text"),
       (passwordShow.innerHTML = `<i class="fas fa-eye-slash"></i>`))
-    : (loginForm["login-password"].type = "password",
-    passwordShow.innerHTML =`<i class="fas fa-eye"></i>`);
+    : ((loginForm["login-password"].type = "password"),
+      (passwordShow.innerHTML = `<i class="fas fa-eye"></i>`));
 }
 
 function guestCred() {

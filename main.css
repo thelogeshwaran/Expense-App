@@ -38,15 +38,15 @@
   border-bottom: 1px solid black;
 }
 
-.password{
+.password {
   display: flex;
   align-items: center;
   margin-top: -10px;
 }
-.password>input{
-  margin-right:-25px ;
+.password > input {
+  margin-right: -25px;
 }
-.password-show{
+.password-show {
   cursor: pointer;
 }
 
@@ -77,29 +77,28 @@
   margin-top: 10px;
 }
 
-.fa-google{
-  color:#45526c;
+.fa-google {
+  color: #45526c;
   cursor: pointer;
 }
 
-.auth-logo{
+.auth-logo {
   font-size: 40px;
   text-align: center;
 }
-.auth-header{
+.auth-header {
   color: #109b4f;
   margin-bottom: 20px;
   text-align: center;
 }
-.auth-title{
+.auth-title {
   text-align: center;
   margin: 10px;
 }
-.auth-info{
+.auth-info {
   text-align: center;
   padding: 10px;
 }
-
 
 /* app page */
 
@@ -120,7 +119,6 @@
   background-color: white;
   color: black;
 }
-
 
 .income-expense {
   display: flex;
@@ -145,7 +143,7 @@
   display: flex;
   align-items: center;
 }
-.form-select{
+.form-select {
   margin-top: -6px;
 }
 .history {
@@ -198,7 +196,6 @@
 .amount {
   padding-right: 10px;
 }
-
 
 @media (max-width: 768px) {
   .container {

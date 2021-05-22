@@ -44,7 +44,7 @@ function addExpense(e) {
   const expenseItem = {};
 
   const amount = inputAmount.value;
-  const expense = parseInt(amount,10);
+  const expense = parseFloat(amount, 10);
   const description = inputDescription.value;
   const categoryValue = category.value;
 
@@ -229,11 +229,13 @@ function displayList(array) {
 
 function displayFinalAmount() {
   if (total) {
-    finalBalance.textContent =
-      `₹ ${total.totalBalance ? total.totalBalance : 0}`;
+    finalBalance.textContent = `₹ ${
+      total.totalBalance ? total.totalBalance : 0
+    }`;
     finalIncome.textContent = `₹ ${total.totalIncome ? total.totalIncome : 0}`;
-    finalExpense.textContent =
-      `₹ ${total.totalExpense ? total.totalExpense : 0}`;
+    finalExpense.textContent = `₹ ${
+      total.totalExpense ? total.totalExpense : 0
+    }`;
   }
 }
 

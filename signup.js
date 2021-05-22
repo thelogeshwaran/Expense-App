@@ -57,8 +57,8 @@ function show() {
   signupForm["signup-password"].type === "password"
     ? ((signupForm["signup-password"].type = "text"),
       (passwordShow.innerHTML = `<i class="fas fa-eye-slash"></i>`))
-    : (signupForm["signup-password"].type = "password",
-    passwordShow.innerHTML =`<i class="fas fa-eye"></i>`);
+    : ((signupForm["signup-password"].type = "password"),
+      (passwordShow.innerHTML = `<i class="fas fa-eye"></i>`));
 }
 
 googleAuth.addEventListener("click", signInGoogle, false);
