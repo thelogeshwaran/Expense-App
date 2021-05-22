@@ -26,17 +26,28 @@
   box-shadow: 5px 10px 10px rgba(rgba(2, 128, 144, 1), 0.2);
 }
 
-.form > input {
+.input {
   font-family: "Asap", sans-serif;
   display: block;
-  border-radius: 5px;
   font-size: 16px;
   background: white;
-  width: 100%;
+  width: 90%;
   border: 0;
   padding: 10px 10px;
-  margin: 15px -10px;
+  margin: 15px 0px;
   border-bottom: 1px solid black;
+}
+
+.password{
+  display: flex;
+  align-items: center;
+  margin-top: -10px;
+}
+.password>input{
+  margin-right:-25px ;
+}
+.password-show{
+  cursor: pointer;
 }
 
 .button {
@@ -49,7 +60,7 @@
   border: 0;
   padding: 10px 0;
   margin-top: 10px;
-  margin-left: -5px;
+  margin-left: px;
   border-radius: 5px;
   background-color: #1fce6d;
 }

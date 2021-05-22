@@ -1,6 +1,7 @@
 const signupForm = document.querySelector("#signup-form");
 const errorInfo = document.querySelector("#signupError");
 const googleAuth = document.querySelector("#google-auth");
+const passwordShow = document.querySelector(".password-show");
 
 signupForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -52,5 +53,13 @@ function signInGoogle() {
     });
 }
 
+function show() {
+  signupForm["signup-password"].type === "password"
+    ? ((signupForm["signup-password"].type = "text"),
+      (passwordShow.innerHTML = `<i class="fas fa-eye-slash"></i>`))
+    : (signupForm["signup-password"].type = "password",
+    passwordShow.innerHTML =`<i class="fas fa-eye"></i>`);
+}
 
 googleAuth.addEventListener("click", signInGoogle, false);
+passwordShow.addEventListener("click", show, false);
