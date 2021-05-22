@@ -27,7 +27,7 @@
         <div class="container-md">
           <a class="navbar-brand" href="#">Expenser</a>
           <div class="signoutBtn">
-            <button class="btn btn-success" id="signout">Signout</button>
+            <button class="btn btn-success" id="signout">Sign out</button>
           </div>
         </div>
       </nav>
@@ -63,7 +63,9 @@
               <div class="input-head">
                 <div class="input-group mb-3">
                   <input
-                    type="text"
+                    type="number"
+                    min="0"
+                    step="0.01"
                     class="form-control"
                     placeholder="Amount spent"
                     aria-label="Amount spent"
