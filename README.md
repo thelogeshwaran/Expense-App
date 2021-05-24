@@ -13,7 +13,7 @@ It is an Expense Tracker App, used track your expenses,
 * Displays the list of History with the date.
 * Chart Representation of your all Transfers.
 * Chart Representation of your Income and Expenses separatly.
-* Track your Income and Expense Individualy.
+* Track your Income and Expense individually.
 
 
 ## Technologies
