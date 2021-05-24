@@ -1,4 +1,4 @@
-# Expense-App
+# Expenser
 Simple Expense Tracker App created with Vanilla Js and Firebase.
 
 
